@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 10 - Accessible JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 50px;
+            background-color: #f4f4f9;
+        }
+
+        .menu-container {
+            width: 200px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .menu-item {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item:focus {
+            background-color: #0078d4;
+            color: white;
+            outline: 3px solid #ffbd33;
+            outline-offset: -3px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Accessible Menu</h1>
+    <p>Use the <strong>Up</strong> and <strong>Down</strong> arrow keys to navigate.</p>
+
+    <nav class="menu-container" id="accessible-menu" role="menu" aria-label="Main Menu">
+        <a href="#" class="menu-item" role="menuitem" tabindex="0">Dashboard</a>
+        <a href="#" class="menu-item" role="menuitem" tabindex="-1">Profile</a>
+        <a href="#" class="menu-item" role="menuitem" tabindex="-1">Settings</a>
+        <a href="#" class="menu-item" role="menuitem" tabindex="-1">Help</a>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuItems = document.querySelectorAll('.menu-item');
+
+            menuItems.forEach((item, index) => {
+                item.addEventListener('keydown', (event) => {
+                    let newIndex;
+
+                    if (event.key === 'ArrowDown') {
+                        event.preventDefault();
+                        newIndex = (index + 1) % menuItems.length;
+                        updateRovingIndex(index, newIndex);
+                    } 
+                    else if (event.key === 'ArrowUp') {
+                        event.preventDefault();
+                        newIndex = (index - 1 + menuItems.length) % menuItems.length;
+                        updateRovingIndex(index, newIndex);
+                    }
+                });
+            });
+
+            function updateRovingIndex(oldIdx, newIdx) {
+                menuItems[oldIdx].setAttribute('tabindex', '-1'); [cite: 12]
+                menuItems[newIdx].setAttribute('tabindex', '0'); [cite: 11]
+                menuItems[newIdx].focus(); [cite: 10]
+            }
+        });
+    </script>
+
+</body>
+</html>
