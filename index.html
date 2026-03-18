@@ -11,6 +11,7 @@
             background-color: #f4f4f9;
         }
 
+        
         .menu-container {
             width: 200px;
             background: #fff;
@@ -33,6 +34,7 @@
             border-bottom: none;
         }
 
+        
         .menu-item:focus {
             background-color: #0078d4;
             color: white;
@@ -61,23 +63,32 @@
                 item.addEventListener('keydown', (event) => {
                     let newIndex;
 
+                    
                     if (event.key === 'ArrowDown') {
-                        event.preventDefault();
-                        newIndex = (index + 1) % menuItems.length;
+                        event.preventDefault(); 
+                        newIndex = (index + 1) % menuItems.length; 
                         updateRovingIndex(index, newIndex);
                     } 
+                    
+              
                     else if (event.key === 'ArrowUp') {
-                        event.preventDefault();
-                        newIndex = (index - 1 + menuItems.length) % menuItems.length;
+                        event.preventDefault(); 
+                        newIndex = (index - 1 + menuItems.length) % menuItems.length; 
                         updateRovingIndex(index, newIndex);
                     }
                 });
             });
 
+            
             function updateRovingIndex(oldIdx, newIdx) {
-                menuItems[oldIdx].setAttribute('tabindex', '-1'); [cite: 12]
-                menuItems[newIdx].setAttribute('tabindex', '0'); [cite: 11]
-                menuItems[newIdx].focus(); [cite: 10]
+                
+                menuItems[oldIdx].setAttribute('tabindex', '-1');
+
+       
+                menuItems[newIdx].setAttribute('tabindex', '0');
+
+        
+                menuItems[newIdx].focus();
             }
         });
     </script>
